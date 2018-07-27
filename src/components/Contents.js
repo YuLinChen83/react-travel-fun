@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchContents } from  '../actions/contentAction'
 import ContentItem from './ContentItem'
 
 // const Contents = ({ contents, onContentClick }) => (
@@ -16,23 +18,14 @@ import ContentItem from './ContentItem'
 // );
 
 class Contents extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contents: [],
-      count: 0,
-    };
-  }
   componentWillMount() {
-    fetch('https://data.kcg.gov.tw/api/action/datastore_search?resource_id=92290ee5-6e61-456f-80c0-249eae2fcc97')
-    .then(res => res.json())
-    .then(data => this.setState({contents: data.result.records, count: data.result.total}));
+    this.props.fetchContents();   // 載入元件時 call 綁定的 dispatch
   }
   render () {
       // const props = this.props;
       // const { store } = props;
       // const state = store.getState();
-      const contents = this.state.contents.map(content => (
+      const contents = this.props.contents.map(content => (
         <ContentItem content={content} />
       ));
       
@@ -41,11 +34,11 @@ class Contents extends Component {
           <div class="content-top">
             {/* <p class="p error" v-if="error">errorText</p>
             <p class="p error" v-if="isNothing">查無資料</p> */}
-            <p class="p">共 <span>{this.state.count}</span> 筆搜尋結果 ...</p>
+            <p class="p">共 <span>{this.props.count}</span> 筆搜尋結果 ...</p>
             <div class="btn-group">
-              <div class="btn btn-close" v-if="zoneText">zoneText</div>
-              <div class="btn btn-close" v-if="free">免費參觀</div>
-              <div class="btn btn-close" v-if="open">全天候開放</div>
+              <div class="btn btn-close">zoneText</div>
+              <div class="btn btn-close">免費參觀</div>
+              <div class="btn btn-close">全天候開放</div>
             </div>
           </div>
           <ul class="contents">
@@ -56,4 +49,16 @@ class Contents extends Component {
   }
 }
 
-export default Contents;
+Contents.PropTypes = {
+  fetchContents: PropTypes.func.isRequired,
+  count: PropTypes.number.isRequired,
+  contents: PropTypes.array.isRequired
+}
+
+
+//connect([mapStateToProps], [mapDispatchToProps], [mergeProps],[options])
+const mapStateToProps = state => ({
+  count: state.contents.count,
+  contents: state.contents.contents  // store中combineReducers子state名稱
+});
+export default connect(mapStateToProps, {fetchContents})(Contents);

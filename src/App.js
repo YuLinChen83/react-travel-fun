@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 // 引入 redux
-import { Provider } from 'redux-redux';
+import { Provider } from 'react-redux';
 import store from './store'
 
 import ContentForm from './components/ContentForm';
