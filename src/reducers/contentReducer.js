@@ -14,6 +14,14 @@ export default function(state = initialState, action) {
           contents: action.payload.contents,
           count:  action.payload.count,
       }
+    case NEW_CONTENT:
+      return {
+          ...state,
+          contents: [...state.contents, ...action.payload.content],
+          //contents: state.contents.push(action.payload.content),
+          //content: action.payload.content,
+          count:  state.count + 1,
+      }
     default:
       return state;
   }

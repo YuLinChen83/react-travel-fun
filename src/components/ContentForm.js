@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createContent } from  '../actions/contentAction'
 
 class ContentForm extends Component {
   constructor(props) {
@@ -7,7 +10,7 @@ class ContentForm extends Component {
       name: '',
       description: '',
       ticketinfo: '',
-      picture1: '',
+      picture1: 'https://picsum.photos/200/300',
       add: '',
       opentime: '',
       website: '',
@@ -21,6 +24,18 @@ class ContentForm extends Component {
   onSubmit(e) {
     e.preventDefault();
     console.log('Submit!');
+
+    const content = {
+      name: this.state.name,
+      description: this.state.description,
+      ticketinfo: this.state.ticketinfo,
+      picture1: this.state.picture1,
+      add: this.state.add,
+      opentime: this.state.opentime,
+      website: this.state.website,
+    };
+
+    this.props.createContent(content);
   }
   
   render() {
@@ -49,4 +64,4 @@ class ContentForm extends Component {
   }
 }
 
-export default ContentForm;
+export default connect(null, { createContent })(ContentForm);

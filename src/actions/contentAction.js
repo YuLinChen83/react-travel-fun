@@ -23,3 +23,10 @@ export const fetchContents = () => dispatch => {
 //     //.then(data => this.setState({contents: data.result.records, count: data.result.total}));
 //   }
 // }
+
+export const createContent = (contentData) => dispatch => {
+  dispatch({
+    type: NEW_CONTENT,
+    payload: {content: contentData},
+  })
+};

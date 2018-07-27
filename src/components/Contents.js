@@ -21,12 +21,22 @@ class Contents extends Component {
   componentWillMount() {
     this.props.fetchContents();   // 載入元件時 call 綁定的 dispatch
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.content) {
+      this.props.contents.unshift(nextProps.content);
+      console.log('componentWillReceiveProps:');
+      console.log(nextProps.content);
+    }
+  }
+
   render () {
       // const props = this.props;
       // const { store } = props;
       // const state = store.getState();
+      console.log(this.props.content);
       const contents = this.props.contents.map(content => (
-        <ContentItem content={content} />
+        <ContentItem key={this.index} content={content} />
       ));
       
       return (
@@ -52,6 +62,7 @@ class Contents extends Component {
 Contents.PropTypes = {
   fetchContents: PropTypes.func.isRequired,
   count: PropTypes.number.isRequired,
+  //content: PropTypes.array.isRequired,
   contents: PropTypes.array.isRequired
 }
 
@@ -59,6 +70,8 @@ Contents.PropTypes = {
 //connect([mapStateToProps], [mapDispatchToProps], [mergeProps],[options])
 const mapStateToProps = state => ({
   count: state.contents.count,
-  contents: state.contents.contents  // store中combineReducers子state名稱
+  contents: state.contents.contents,  // store中combineReducers子state名稱
+  content: state.contents.content
 });
+
 export default connect(mapStateToProps, {fetchContents})(Contents);
