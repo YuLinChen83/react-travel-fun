@@ -1,4 +1,4 @@
-import { FETCH_CONTENTS, NEW_CONTENT } from '../actions/types';
+import { FETCH_CONTENTS, NEW_CONTENT, FILIT_CONTENT_KEYWORD } from '../actions/types';
 
 const initialState = {
   contents: [],
@@ -22,6 +22,18 @@ export default function(state = initialState, action) {
           //content: action.payload.content,
           count:  state.count + 1,
       }
+    case FILIT_CONTENT_KEYWORD:
+
+    //console.log(state.contents.map(i => i.name.indexOf(action.payload.keyword) > -1));
+    console.log(state.contents.map(i => i['Name']));
+          return {
+            ...state,
+            contents: (state.contents.map(i => i['Name'])
+            .filter(name => {
+              console.log(name, action.payload.keyword);
+              name.indexOf(action.payload.keyword) > -1;
+            })),
+          }
     default:
       return state;
   }

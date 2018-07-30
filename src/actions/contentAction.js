@@ -1,4 +1,4 @@
-import { FETCH_CONTENTS, NEW_CONTENT } from './types';
+import { FETCH_CONTENTS, NEW_CONTENT, FILIT_CONTENT_KEYWORD } from './types';
 
 
 // 寫法一
@@ -28,5 +28,13 @@ export const createContent = (contentData) => dispatch => {
   dispatch({
     type: NEW_CONTENT,
     payload: {content: contentData},
-  })
+  });
+};
+
+export const searchKeyWord = (keyWord) => dispatch => {
+  console.log("keyWord:"+keyWord);
+  dispatch({
+    type: FILIT_CONTENT_KEYWORD,
+    payload: {keyword: keyWord},
+  });
 };
