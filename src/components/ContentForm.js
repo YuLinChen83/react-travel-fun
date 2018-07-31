@@ -33,7 +33,10 @@ class ContentForm extends Component {
       add: this.state.add,
       opentime: this.state.opentime,
       website: this.state.website,
+      _id: '999999',
     };
+
+    console.log(content);
 
     this.props.createContent(content);
   }

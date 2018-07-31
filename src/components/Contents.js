@@ -4,19 +4,6 @@ import { connect } from 'react-redux';
 import { fetchContents } from  '../actions/contentAction'
 import ContentItem from './ContentItem'
 
-// const Contents = ({ contents, onContentClick }) => (
-//     <ul  class="contents">
-//       {
-//         contents.map(content => (
-//           <ContentItem
-//             // key={todo.id}
-//             // {...todo}
-//             // onClick={() => onContentClick(todo.id)}
-//           />))
-//       }
-//     </ul>
-// );
-
 class Contents extends Component {
   componentWillMount() {
     this.props.fetchContents();   // 載入元件時 call 綁定的 dispatch
@@ -25,18 +12,14 @@ class Contents extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.content) {
       this.props.contents.unshift(nextProps.content);
-      console.log('componentWillReceiveProps:');
-      console.log(nextProps.content);
+      console.log('this.props.contents');
+      console.log(this.props.contents);
     }
   }
 
   render () {
-      // const props = this.props;
-      // const { store } = props;
-      // const state = store.getState();
-      console.log(this.props.content);
       const contents = this.props.contents.map(content => (
-        <ContentItem key={this.index} content={content} />
+        <ContentItem key={content._id} content={content} />
       ));
       
       return (

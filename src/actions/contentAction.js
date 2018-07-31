@@ -1,4 +1,4 @@
-import { FETCH_CONTENTS, NEW_CONTENT, FILIT_CONTENT_KEYWORD } from './types';
+import { FETCH_CONTENTS, NEW_CONTENT, FILIT_CONTENT_KEYWORD, FILIT_FREE } from './types';
 
 
 // 寫法一
@@ -38,3 +38,10 @@ export const searchKeyWord = (keyWord) => dispatch => {
     payload: {keyword: keyWord},
   });
 };
+
+export const filtFree = (onlyfree) => dispatch => {
+  dispatch({
+    type: FILIT_FREE,
+    payload: {onlyfree: onlyfree},
+  });
+}

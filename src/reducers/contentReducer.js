@@ -1,9 +1,10 @@
-import { FETCH_CONTENTS, NEW_CONTENT, FILIT_CONTENT_KEYWORD } from '../actions/types';
+import { FETCH_CONTENTS, NEW_CONTENT, FILIT_CONTENT_KEYWORD, FILIT_FREE } from '../actions/types';
 
 const initialState = {
   contents: [],
   content: {},
   count: 0,
+  onlyfree: false,
 }
 
 export default function(state = initialState, action) {
@@ -15,6 +16,7 @@ export default function(state = initialState, action) {
           count:  action.payload.count,
       }
     case NEW_CONTENT:
+      console.log(state.contents.unshift(action.payload.content));
       return {
           ...state,
           contents: [...state.contents, ...action.payload.content],
@@ -23,17 +25,19 @@ export default function(state = initialState, action) {
           count:  state.count + 1,
       }
     case FILIT_CONTENT_KEYWORD:
-
-    //console.log(state.contents.map(i => i.name.indexOf(action.payload.keyword) > -1));
-    console.log(state.contents.map(i => i['Name']));
-          return {
-            ...state,
-            contents: (state.contents.map(i => i['Name'])
-            .filter(name => {
-              console.log(name, action.payload.keyword);
-              name.indexOf(action.payload.keyword) > -1;
-            })),
-          }
+      const filtContents = state.contents.filter(content => content.Name.includes(action.payload.keyword) === true);
+      console.log(filtContents, filtContents.length);
+      return {
+        ...state,
+        contents: filtContents,
+        count: filtContents.length
+      }
+    case FILIT_FREE:
+      const filtFreeContents = state.contents.filter(content => content.Ticketinfo.includes('免費') === action.payload.onlyfree);
+      return {
+        ...state,
+        contents: filtFreeContents,
+      }
     default:
       return state;
   }

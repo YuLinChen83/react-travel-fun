@@ -1,3 +1,4 @@
 export const FETCH_CONTENTS = 'FETCH_CONTENTS';
 export const NEW_CONTENT = 'NEW_CONTENT';
 export const FILIT_CONTENT_KEYWORD = 'FILIT_CONTENT_KEYWORD';
+export const FILIT_FREE = 'FILIT_FREE';

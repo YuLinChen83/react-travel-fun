@@ -13,6 +13,12 @@ body {
   .header > .container > form {
     width: 60%;
   }
+  .side-categories .input-group .checkbox-style .selected {
+    background-color: #7828B4;
+    border-radius: 50%;
+    width: 0%;
+    height: 0%;
+  }
 
 ul {
   list-style: none;
@@ -354,6 +360,7 @@ p.p.error {
         transform: translate(-50%, -50%);
         pointer-events: none;
         transition: all .6s; }
+        
       .side-categories .input-group .checkbox-style:after {
         background-color: #7828B4;
         border-radius: 50%;
